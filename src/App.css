@@ -533,6 +533,170 @@
 .story-list-source { font-size: 11px; color: var(--text-tertiary); }
 
 /* ══════════════════════════════════════════
+   USE IN LIFE — DETAILED SECTION
+══════════════════════════════════════════ */
+
+.life-section {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.life-section-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  background: linear-gradient(135deg, #14532D 0%, #166534 60%, #15803D 100%);
+  border-radius: var(--radius);
+  padding: 20px 22px;
+  box-shadow: 0 4px 16px rgba(21,128,61,0.25);
+  position: relative;
+  overflow: hidden;
+}
+
+.life-section-header::after {
+  content: '🌿';
+  position: absolute;
+  right: 16px; bottom: -4px;
+  font-size: 52px;
+  opacity: 0.12;
+}
+
+.life-section-icon {
+  font-size: 26px;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.life-section-title {
+  font-size: 18px;
+  font-weight: 800;
+  color: #fff;
+  font-family: var(--font-serif);
+}
+
+.life-section-sub {
+  font-size: 12.5px;
+  color: rgba(255,255,255,0.68);
+  margin-top: 4px;
+  line-height: 1.5;
+}
+
+.life-keyword-pill {
+  margin-left: auto;
+  flex-shrink: 0;
+  background: rgba(255,255,255,0.15);
+  border: 1px solid rgba(255,255,255,0.25);
+  color: rgba(255,255,255,0.9);
+  padding: 5px 14px;
+  border-radius: 99px;
+  font-size: 12px;
+  font-weight: 700;
+  white-space: nowrap;
+  align-self: center;
+}
+
+/* 2×2 grid of life cards */
+.life-cards-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.life-card {
+  border: 1.5px solid;
+  border-radius: var(--radius);
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.18s, box-shadow 0.18s;
+}
+
+.life-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.life-card-domain-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.life-card-icon { font-size: 20px; }
+
+.life-card-domain {
+  font-size: 13px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+}
+
+.life-card-text {
+  font-size: 14px;
+  line-height: 1.75;
+  color: var(--text-primary);
+}
+
+.life-card-action {
+  margin-top: 4px;
+  padding-top: 10px;
+  border-top: 1.5px dashed;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.life-card-action-label {
+  font-size: 10px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+}
+
+.life-card-action-text {
+  font-size: 13px;
+  line-height: 1.65;
+  color: var(--text-secondary);
+  font-style: italic;
+}
+
+/* Reflection prompt */
+.life-reflection {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  background: linear-gradient(135deg, #1E1B4B 0%, #312E81 100%);
+  border-radius: var(--radius);
+  padding: 20px 22px;
+  box-shadow: var(--shadow-md);
+}
+
+.life-reflection-icon {
+  font-size: 26px;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.life-reflection-q {
+  font-size: 11px;
+  font-weight: 800;
+  color: rgba(199,210,254,0.7);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 6px;
+}
+
+.life-reflection-text {
+  font-size: 14.5px;
+  color: #E0E7FF;
+  line-height: 1.8;
+  font-family: var(--font-serif);
+}
+
+/* ══════════════════════════════════════════
    RUN TAB STYLES
 ══════════════════════════════════════════ */
 
@@ -1102,23 +1266,25 @@
    RESPONSIVE
 ══════════════════════════════════════════ */
 @media (max-width: 640px) {
-  .app-header     { padding: 16px 16px 0; }
-  .app-main       { padding: 16px; }
-  .app-title      { font-size: 22px; }
+  .app-header        { padding: 16px 16px 0; }
+  .app-main          { padding: 16px; }
+  .app-title         { font-size: 22px; }
   .header-date-badge { display: none; }
-  .tab-btn        { padding: 10px 14px; font-size: 13px; }
-  .tab-label      { display: none; }
-  .tab-icon       { font-size: 18px; }
-  .controls-row   { grid-template-columns: 1fr; }
-  .chapter-grid   { grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); }
-  .card-header    { flex-direction: column; }
-  .shloka-text    { font-size: 15px; }
-  .run-stats-strip { grid-template-columns: repeat(2, 1fr); }
-  .stats-grid     { grid-template-columns: 1fr 1fr; }
-  .run-form-grid  { grid-template-columns: 1fr; }
-  .run-toolbar    { flex-direction: column; align-items: stretch; }
-  .run-add-btn    { text-align: center; }
-  .app-footer     { justify-content: center; text-align: center; }
+  .tab-btn           { padding: 10px 14px; font-size: 13px; }
+  .tab-label         { display: none; }
+  .tab-icon          { font-size: 18px; }
+  .controls-row      { grid-template-columns: 1fr; }
+  .card-header       { flex-direction: column; }
+  .shloka-text       { font-size: 15px; }
+  .life-cards-grid   { grid-template-columns: 1fr; }
+  .life-section-header { flex-wrap: wrap; }
+  .life-keyword-pill { margin-left: 0; }
+  .run-stats-strip   { grid-template-columns: repeat(2, 1fr); }
+  .stats-grid        { grid-template-columns: 1fr 1fr; }
+  .run-form-grid     { grid-template-columns: 1fr; }
+  .run-toolbar       { flex-direction: column; align-items: stretch; }
+  .run-add-btn       { text-align: center; }
+  .app-footer        { justify-content: center; text-align: center; }
 }
 
 @media (max-width: 400px) {
