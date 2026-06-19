@@ -37,7 +37,26 @@ export const CHAPTER_NAMES: Record<number, string> = {
   18: 'ಮೋಕ್ಷ ಸಂನ್ಯಾಸ ಯೋಗ',
 };
 
+import { shlokasCh1to2 } from './gita-ch1-2'
+import { shlokasCh3to4 } from './gita-ch3-4'
+import { shlokasCh5to6 } from './gita-ch5-6'
+import { shlokasCh7to9 } from './gita-ch7-9'
+import { shlokasCh10to11 } from './gita-ch10-11'
+import { shlokasCh12to15 } from './gita-ch12-15'
+import { shlokasCh16to18 } from './gita-ch16-18'
+
 export const shlokas: Shloka[] = [
+  ...shlokasCh1to2,
+  ...shlokasCh3to4,
+  ...shlokasCh5to6,
+  ...shlokasCh7to9,
+  ...shlokasCh10to11,
+  ...shlokasCh12to15,
+  ...shlokasCh16to18,
+]
+
+// Legacy inline shlokas (kept for reference – NOT exported separately)
+const _legacyShlokas: Shloka[] = [
 
   // ═══════════════════════════════════════════
   // CHAPTER 1 — ಅರ್ಜುನ ವಿಷಾದ ಯೋಗ (47 ಶ್ಲೋಕಗಳು)
