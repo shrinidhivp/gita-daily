@@ -1,0 +1,503 @@
+/* ======================== APP LAYOUT ======================== */
+.app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  max-width: 900px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+/* ======================== HEADER ======================== */
+.app-header {
+  background: linear-gradient(135deg, var(--maroon) 0%, #5C0015 100%);
+  color: #fff;
+  padding: 20px 24px 0;
+  box-shadow: var(--shadow-md);
+}
+
+.header-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-bottom: 16px;
+}
+
+.header-title-group {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.om-symbol {
+  width: 52px;
+  height: 52px;
+  background: rgba(255,255,255,0.15);
+  border: 2px solid rgba(255,255,255,0.3);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-serif);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  flex-shrink: 0;
+  color: rgba(255,255,255,0.9);
+}
+
+.app-title {
+  font-family: var(--font-serif);
+  font-size: 26px;
+  font-weight: 700;
+  line-height: 1.2;
+  color: #fff;
+}
+
+.app-subtitle {
+  font-size: 13px;
+  color: rgba(255,255,255,0.75);
+  margin-top: 2px;
+}
+
+.today-date {
+  font-size: 12px;
+  color: rgba(255,255,255,0.7);
+  background: rgba(255,255,255,0.1);
+  padding: 4px 10px;
+  border-radius: 20px;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+/* ======================== TABS ======================== */
+.tab-nav {
+  display: flex;
+  gap: 4px;
+  margin-top: 4px;
+}
+
+.tab-btn {
+  padding: 10px 24px;
+  border: none;
+  border-radius: var(--radius-sm) var(--radius-sm) 0 0;
+  background: rgba(255,255,255,0.1);
+  color: rgba(255,255,255,0.75);
+  font-family: var(--font-sans);
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.tab-btn:hover {
+  background: rgba(255,255,255,0.18);
+  color: #fff;
+}
+
+.tab-btn.active {
+  background: var(--bg);
+  color: var(--maroon);
+  font-weight: 700;
+}
+
+/* ======================== MAIN ======================== */
+.app-main {
+  flex: 1;
+  background: var(--bg);
+  padding: 24px;
+}
+
+/* ======================== TAB CONTENT ======================== */
+.tab-content {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* ======================== CONTROLS ======================== */
+.controls-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.controls-row.single {
+  grid-template-columns: 1fr;
+  max-width: 420px;
+}
+
+.select-group {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.select-label {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-tertiary);
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+}
+
+.select-input {
+  padding: 9px 12px;
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--surface);
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  font-size: 14px;
+  cursor: pointer;
+  transition: border-color 0.2s;
+  outline: none;
+}
+
+.select-input:focus {
+  border-color: var(--saffron);
+}
+
+.select-input:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* ======================== CALLOUTS ======================== */
+.callout {
+  padding: 12px 16px;
+  border-radius: var(--radius-sm);
+  font-size: 14px;
+  font-weight: 500;
+  border-left: 4px solid;
+}
+
+.callout-info {
+  background: var(--teal-light);
+  border-color: var(--teal);
+  color: var(--teal);
+}
+
+.callout-saffron {
+  background: var(--saffron-light);
+  border-color: var(--saffron);
+  color: var(--saffron);
+}
+
+/* ======================== CARDS ======================== */
+.card {
+  background: var(--surface);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
+}
+
+.card-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 16px 20px;
+  background: var(--surface2);
+  border-bottom: 1.5px solid var(--border);
+}
+
+.card-title {
+  display: block;
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--maroon);
+}
+
+.card-subtitle {
+  display: block;
+  font-size: 12px;
+  color: var(--text-tertiary);
+  margin-top: 2px;
+}
+
+.keyword-badge {
+  flex-shrink: 0;
+  padding: 4px 12px;
+  background: var(--saffron-light);
+  color: var(--saffron);
+  border: 1px solid var(--saffron-mid);
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.keyword-badge--story {
+  background: var(--teal-light);
+  color: var(--teal);
+  border-color: #B0D8D8;
+}
+
+.card-body {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* ======================== SECTIONS ======================== */
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.section-label {
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--text-tertiary);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.shloka-text {
+  font-family: var(--font-serif);
+  font-size: 17px;
+  line-height: 1.9;
+  color: var(--maroon);
+  white-space: pre-line;
+  background: var(--gold-light);
+  padding: 14px 16px;
+  border-radius: var(--radius-sm);
+  border-left: 3px solid var(--gold);
+}
+
+.sanskrit-toggle {
+  align-self: flex-start;
+  background: none;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 5px 12px;
+  font-size: 12px;
+  color: var(--text-tertiary);
+  cursor: pointer;
+  font-family: var(--font-sans);
+  transition: all 0.2s;
+}
+
+.sanskrit-toggle:hover {
+  border-color: var(--saffron);
+  color: var(--saffron);
+}
+
+.sanskrit-text {
+  font-size: 13px;
+  color: var(--text-secondary);
+  font-style: italic;
+  line-height: 1.7;
+  padding: 10px 14px;
+  background: var(--surface2);
+  border-radius: var(--radius-sm);
+}
+
+.meaning-text {
+  font-size: 15px;
+  line-height: 1.75;
+  color: var(--text-primary);
+}
+
+.application-text {
+  font-size: 14.5px;
+  line-height: 1.75;
+  color: var(--text-secondary);
+}
+
+.story-text {
+  font-size: 15px;
+  line-height: 1.85;
+  color: var(--text-primary);
+}
+
+.divider {
+  height: 1px;
+  background: var(--border);
+}
+
+/* ======================== CHAPTER GRID ======================== */
+.chapter-section {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.section-heading {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.chapter-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 8px;
+}
+
+.chapter-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  background: var(--surface);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  text-align: left;
+  font-family: var(--font-sans);
+  transition: all 0.18s;
+}
+
+.chapter-btn:hover {
+  border-color: var(--saffron);
+  background: var(--saffron-light);
+}
+
+.chapter-btn.active {
+  border-color: var(--maroon);
+  background: var(--maroon-light);
+}
+
+.chapter-num {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--maroon);
+  flex-shrink: 0;
+}
+
+.chapter-btn.active .chapter-num {
+  background: var(--maroon);
+  color: #fff;
+  border-color: var(--maroon);
+}
+
+.chapter-name {
+  font-size: 11px;
+  color: var(--text-secondary);
+  line-height: 1.3;
+}
+
+/* ======================== STORY LIST ======================== */
+.story-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.story-list-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 14px;
+  background: var(--surface);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  text-align: left;
+  font-family: var(--font-sans);
+  transition: all 0.18s;
+}
+
+.story-list-item:hover {
+  border-color: var(--teal);
+  background: var(--teal-light);
+}
+
+.story-list-item.active {
+  border-color: var(--teal);
+  background: var(--teal-light);
+}
+
+.story-list-num {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--teal);
+  flex-shrink: 0;
+}
+
+.story-list-item.active .story-list-num {
+  background: var(--teal);
+  color: #fff;
+  border-color: var(--teal);
+}
+
+.story-list-info {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.story-list-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.story-list-source {
+  font-size: 11px;
+  color: var(--text-tertiary);
+}
+
+/* ======================== FOOTER ======================== */
+.app-footer {
+  background: var(--surface2);
+  border-top: 1.5px solid var(--border);
+  padding: 14px 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  font-size: 12px;
+  color: var(--text-tertiary);
+}
+
+/* ======================== RESPONSIVE ======================== */
+@media (max-width: 600px) {
+  .app-header { padding: 16px 16px 0; }
+  .app-main { padding: 16px; }
+
+  .app-title { font-size: 20px; }
+  .today-date { display: none; }
+
+  .tab-btn { padding: 9px 16px; font-size: 14px; }
+
+  .controls-row { grid-template-columns: 1fr; }
+  .chapter-grid { grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); }
+
+  .card-header { flex-direction: column; }
+  .shloka-text { font-size: 15px; }
+
+  .app-footer { justify-content: center; text-align: center; }
+}
+
+@media (max-width: 380px) {
+  .header-title-group { gap: 10px; }
+  .om-symbol { width: 40px; height: 40px; font-size: 9px; }
+  .app-title { font-size: 18px; }
+}

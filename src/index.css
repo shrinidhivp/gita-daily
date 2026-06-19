@@ -1,0 +1,47 @@
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --saffron:        #FF6B00;
+  --saffron-light:  #FFF3E8;
+  --saffron-mid:    #FFD5B0;
+  --gold:           #B8860B;
+  --gold-light:     #FFF8E7;
+  --maroon:         #800020;
+  --maroon-light:   #FFF0F3;
+  --teal:           #006B6B;
+  --teal-light:     #E6F5F5;
+  --bg:             #FAFAF7;
+  --surface:        #FFFFFF;
+  --surface2:       #F5F3EE;
+  --border:         #E8E2D8;
+  --border-strong:  #C8C0B0;
+  --text-primary:   #1A1208;
+  --text-secondary: #5C4F3A;
+  --text-tertiary:  #9C8E7A;
+  --shadow-sm:      0 1px 3px rgba(0,0,0,0.08);
+  --shadow-md:      0 4px 12px rgba(0,0,0,0.10);
+  --shadow-lg:      0 8px 24px rgba(0,0,0,0.12);
+  --radius:         12px;
+  --radius-sm:      8px;
+  --font-sans:      'Noto Sans Kannada', 'Segoe UI', system-ui, sans-serif;
+  --font-serif:     'Noto Serif Kannada', Georgia, serif;
+}
+
+html, body {
+  min-height: 100vh;
+  background: var(--bg);
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  line-height: 1.6;
+  font-size: 16px;
+}
+
+#root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
