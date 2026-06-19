@@ -1,26 +1,35 @@
 import { useState, useMemo } from 'react'
-import { shlokas, CHAPTER_NAMES, groupByChapter, getTodaysShloka } from '../data/shlokas'
+import { shlokas, CHAPTER_NAMES, CHAPTER_VERSE_COUNTS, groupByChapter, getTodaysShloka } from '../data/shlokas'
 
 export default function ShlokaTab() {
   const [selectedChapter, setSelectedChapter] = useState<string>('today')
-  const [selectedVerseIdx, setSelectedVerseIdx] = useState<number>(0)
+  const [selectedVerse, setSelectedVerse] = useState<number>(1)
   const [showSanskrit, setShowSanskrit] = useState(false)
 
   const shlokasByChapter = useMemo(() => groupByChapter(shlokas), [])
   const todaysShloka = useMemo(() => getTodaysShloka(shlokas), [])
 
+  // Look up shloka by chapter + verse number
   const currentShloka = useMemo(() => {
     if (selectedChapter === 'today') return todaysShloka
-    const chap = shlokasByChapter[Number(selectedChapter)] || []
-    return chap[selectedVerseIdx] || todaysShloka
-  }, [selectedChapter, selectedVerseIdx, shlokasByChapter, todaysShloka])
-
-  const versesInChapter = useMemo(() => {
-    if (selectedChapter === 'today') return []
-    return shlokasByChapter[Number(selectedChapter)] || []
-  }, [selectedChapter, shlokasByChapter])
+    const chapNum = Number(selectedChapter)
+    const found = (shlokasByChapter[chapNum] || []).find(
+      (s) => Number(s.verse) === selectedVerse
+    )
+    return found || null
+  }, [selectedChapter, selectedVerse, shlokasByChapter, todaysShloka])
 
   const isToday = selectedChapter === 'today'
+  const chapNum = Number(selectedChapter)
+  const totalVersesInChapter = isToday ? 0 : (CHAPTER_VERSE_COUNTS[chapNum] || 0)
+
+  // Set of verse numbers that have full content
+  const availableVerses = useMemo(() => {
+    if (isToday) return new Set<number>()
+    return new Set((shlokasByChapter[chapNum] || []).map((s) => Number(s.verse)))
+  }, [selectedChapter, shlokasByChapter, chapNum, isToday])
+
+  const displayShloka = isToday ? todaysShloka : currentShloka
 
   return (
     <div className="tab-content">
@@ -33,34 +42,39 @@ export default function ShlokaTab() {
             value={selectedChapter}
             onChange={(e) => {
               setSelectedChapter(e.target.value)
-              setSelectedVerseIdx(0)
+              setSelectedVerse(1)
             }}
           >
             <option value="today">ಇಂದಿನ ಶ್ಲೋಕ (Today)</option>
-            {Array.from({ length: 18 }, (_, i) => i + 1).map((ch) =>
-              shlokasByChapter[ch] ? (
-                <option key={ch} value={String(ch)}>
-                  ಅಧ್ಯಾಯ {ch} — {CHAPTER_NAMES[ch]}
-                </option>
-              ) : null
-            )}
+            {Array.from({ length: 18 }, (_, i) => i + 1).map((ch) => (
+              <option key={ch} value={String(ch)}>
+                ಅಧ್ಯಾಯ {ch} — {CHAPTER_NAMES[ch]} ({CHAPTER_VERSE_COUNTS[ch]} ಶ್ಲೋಕಗಳು)
+              </option>
+            ))}
           </select>
         </div>
 
         <div className="select-group">
-          <label className="select-label">ಶ್ಲೋಕ ಆಯ್ಕೆ</label>
+          <label className="select-label">
+            ಶ್ಲೋಕ ಆಯ್ಕೆ
+            {!isToday && (
+              <span style={{ marginLeft: 6, fontWeight: 400, color: '#9C8E7A' }}>
+                ({availableVerses.size}/{totalVersesInChapter} ಲಭ್ಯ)
+              </span>
+            )}
+          </label>
           <select
             className="select-input"
-            value={selectedVerseIdx}
+            value={selectedVerse}
             disabled={isToday}
-            onChange={(e) => setSelectedVerseIdx(Number(e.target.value))}
+            onChange={(e) => setSelectedVerse(Number(e.target.value))}
           >
             {isToday ? (
               <option value={0}>ಇಂದಿನ ಶ್ಲೋಕ</option>
             ) : (
-              versesInChapter.map((s, i) => (
-                <option key={i} value={i}>
-                  ಶ್ಲೋಕ {s.verse}
+              Array.from({ length: totalVersesInChapter }, (_, i) => i + 1).map((v) => (
+                <option key={v} value={v}>
+                  ಶ್ಲೋಕ {v}{availableVerses.has(v) ? ' ✓' : ''}
                 </option>
               ))
             )}
@@ -71,59 +85,81 @@ export default function ShlokaTab() {
       {/* Today badge */}
       {isToday && (
         <div className="callout callout-info">
-          ಇಂದು — ಅಧ್ಯಾಯ {currentShloka.chapter}, ಶ್ಲೋಕ {currentShloka.verse} · ಪ್ರತಿ ದಿನ ಹೊಸ ಶ್ಲೋಕ ತೋರಿಸುತ್ತದೆ
+          ಇಂದು — ಅಧ್ಯಾಯ {todaysShloka.chapter}, ಶ್ಲೋಕ {todaysShloka.verse} · ಪ್ರತಿ ದಿನ ಹೊಸ ಶ್ಲೋಕ ತೋರಿಸುತ್ತದೆ
         </div>
       )}
 
-      {/* Shloka Card */}
-      <div className="card shloka-card">
-        <div className="card-header">
-          <div>
-            <span className="card-title">
-              ಅಧ್ಯಾಯ {currentShloka.chapter} · ಶ್ಲೋಕ {currentShloka.verse}
-            </span>
-            <span className="card-subtitle">{CHAPTER_NAMES[currentShloka.chapter]}</span>
+      {/* Shloka Card — full content */}
+      {displayShloka ? (
+        <div className="card shloka-card">
+          <div className="card-header">
+            <div>
+              <span className="card-title">
+                ಅಧ್ಯಾಯ {displayShloka.chapter} · ಶ್ಲೋಕ {displayShloka.verse}
+              </span>
+              <span className="card-subtitle">{CHAPTER_NAMES[displayShloka.chapter]}</span>
+            </div>
+            <span className="keyword-badge">{displayShloka.keyword}</span>
           </div>
-          <span className="keyword-badge">{currentShloka.keyword}</span>
-        </div>
 
-        <div className="card-body">
-          {/* Kannada shloka */}
-          <div className="section">
-            <span className="section-label">ಕನ್ನಡ ಶ್ಲೋಕ</span>
-            <div className="shloka-text">
-              {currentShloka.kannada}
+          <div className="card-body">
+            <div className="section">
+              <span className="section-label">ಕನ್ನಡ ಶ್ಲೋಕ</span>
+              <div className="shloka-text">{displayShloka.kannada}</div>
+            </div>
+
+            <button
+              className="sanskrit-toggle"
+              onClick={() => setShowSanskrit(!showSanskrit)}
+            >
+              {showSanskrit ? '▲' : '▼'} Sanskrit (Transliteration)
+            </button>
+            {showSanskrit && (
+              <div className="sanskrit-text">{displayShloka.sanskrit}</div>
+            )}
+
+            <div className="divider" />
+
+            <div className="section">
+              <span className="section-label">ಅರ್ಥ</span>
+              <p className="meaning-text">{displayShloka.meaning}</p>
+            </div>
+
+            <div className="divider" />
+
+            <div className="section">
+              <span className="section-label">ಜೀವನದಲ್ಲಿ ಉಪಯೋಗ</span>
+              <p className="application-text">{displayShloka.application}</p>
             </div>
           </div>
-
-          {/* Sanskrit toggle */}
-          <button
-            className="sanskrit-toggle"
-            onClick={() => setShowSanskrit(!showSanskrit)}
-          >
-            {showSanskrit ? '▲' : '▼'} Sanskrit (Transliteration)
-          </button>
-          {showSanskrit && (
-            <div className="sanskrit-text">{currentShloka.sanskrit}</div>
-          )}
-
-          <div className="divider" />
-
-          {/* Meaning */}
-          <div className="section">
-            <span className="section-label">ಅರ್ಥ</span>
-            <p className="meaning-text">{currentShloka.meaning}</p>
+        </div>
+      ) : (
+        /* Placeholder card for verses not yet translated */
+        <div className="card shloka-card">
+          <div className="card-header">
+            <div>
+              <span className="card-title">
+                ಅಧ್ಯಾಯ {chapNum} · ಶ್ಲೋಕ {selectedVerse}
+              </span>
+              <span className="card-subtitle">{CHAPTER_NAMES[chapNum]}</span>
+            </div>
+            <span className="keyword-badge" style={{ background: '#F5F3EE', color: '#9C8E7A', borderColor: '#E8E2D8' }}>
+              ಶೀಘ್ರದಲ್ಲಿ
+            </span>
           </div>
-
-          <div className="divider" />
-
-          {/* Application */}
-          <div className="section">
-            <span className="section-label">ಜೀವನದಲ್ಲಿ ಉಪಯೋಗ</span>
-            <p className="application-text">{currentShloka.application}</p>
+          <div className="card-body">
+            <div className="callout callout-info" style={{ margin: 0 }}>
+              ಈ ಶ್ಲೋಕದ ಕನ್ನಡ ಅರ್ಥ ಮತ್ತು ವಿವರಣೆ ಶೀಘ್ರದಲ್ಲಿ ಸೇರಿಸಲಾಗುವುದು.
+              ಈ ಮೊದಲು ✓ ಗುರುತಿರುವ ಶ್ಲೋಕಗಳನ್ನು ಆಯ್ಕೆ ಮಾಡಿ.
+            </div>
+            <div className="divider" />
+            <p className="meaning-text" style={{ color: '#9C8E7A', fontStyle: 'italic' }}>
+              ಒಟ್ಟು {availableVerses.size} ಶ್ಲೋಕಗಳ ಸಂಪೂರ್ಣ ಅರ್ಥ ಲಭ್ಯ ·
+              {' '}{totalVersesInChapter - availableVerses.size} ಶ್ಲೋಕಗಳು ಬರುತ್ತಿವೆ
+            </p>
           </div>
         </div>
-      </div>
+      )}
 
       {/* Chapter grid */}
       <div className="chapter-section">
@@ -135,7 +171,7 @@ export default function ShlokaTab() {
               className={`chapter-btn ${selectedChapter === String(ch) ? 'active' : ''}`}
               onClick={() => {
                 setSelectedChapter(String(ch))
-                setSelectedVerseIdx(0)
+                setSelectedVerse(1)
               }}
             >
               <span className="chapter-num">{ch}</span>

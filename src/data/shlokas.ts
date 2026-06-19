@@ -8,6 +8,14 @@ export interface Shloka {
   keyword: string;
 }
 
+// Total verse count per chapter (used to populate the verse dropdown)
+export const CHAPTER_VERSE_COUNTS: Record<number, number> = {
+  1: 47, 2: 72, 3: 43, 4: 42, 5: 29,
+  6: 47, 7: 30, 8: 28, 9: 34, 10: 42,
+  11: 55, 12: 20, 13: 34, 14: 27, 15: 20,
+  16: 24, 17: 28, 18: 78,
+};
+
 export const CHAPTER_NAMES: Record<number, string> = {
   1: 'ಅರ್ಜುನ ವಿಷಾದ ಯೋಗ',
   2: 'ಸಾಂಖ್ಯ ಯೋಗ',
